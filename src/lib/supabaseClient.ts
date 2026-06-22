@@ -1,24 +1,11 @@
-// Phase 1 runs off bundled seed data; Supabase is intentionally not wired up here.
-// This stub exists so any legacy import paths keep resolving without crashing the
-// app at module load when Supabase env vars are absent in deployment.
+import { createClient } from "@supabase/supabase-js";
 
-type AnyFn = (...args: any[]) => any;
+// External Supabase project that hosts the companies dataset (116 companies).
+// The publishable/anon key is safe to ship in client code.
+const SUPABASE_URL = "https://sslffsyjfkqqzlxbvrxs.supabase.co";
+const SUPABASE_ANON_KEY =
+  "sb_publishable_IQxbrmz9HZ2lmtlM2k98ZQ_DT1JHuyr";
 
-const unavailable: ProxyHandler<object> = {
-  get(_target, prop) {
-    if (prop === "then") return undefined;
-    const fn: AnyFn = () => {
-      throw new Error(
-        "Supabase is not configured in Phase 1. Data is served from seed files.",
-      );
-    };
-    return new Proxy(fn, unavailable);
-  },
-  apply() {
-    throw new Error(
-      "Supabase is not configured in Phase 1. Data is served from seed files.",
-    );
-  },
-};
-
-export const supabase = new Proxy(function () {} as any, unavailable);
+export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+  auth: { persistSession: false },
+});
