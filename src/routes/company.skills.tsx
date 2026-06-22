@@ -181,7 +181,7 @@ function SkillIntelligence() {
           <p className="text-base font-semibold text-red-700">
             Unable to load skill intelligence.
           </p>
-          <p className="mt-2 text-sm text-red-600">{String(error)}</p>
+          <p className="mt-2 text-sm text-red-600">Something went wrong. Please try again.</p>
           <div className="mt-4 flex flex-wrap justify-center gap-2">
             <button
               onClick={() => {
