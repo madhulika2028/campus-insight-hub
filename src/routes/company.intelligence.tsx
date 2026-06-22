@@ -151,7 +151,7 @@ function CompanyIntelligence() {
           <p className="text-base font-semibold text-red-700">
             Unable to load company details.
           </p>
-          <p className="mt-2 text-sm text-red-600">{String(error)}</p>
+          <p className="mt-2 text-sm text-red-600">Something went wrong. Please try again.</p>
           <button
             onClick={() => refetch()}
             className="mt-4 rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700"
@@ -202,26 +202,36 @@ function CompanyIntelligence() {
             </div>
           </div>
           <div className="hidden items-center gap-2 sm:flex">
-            {f.website_url && (
-              <a
-                href={f.website_url}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 px-3 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50"
-              >
-                <Globe className="h-3.5 w-3.5" /> Website
-              </a>
-            )}
-            {f.linkedin_url && (
-              <a
-                href={f.linkedin_url}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 px-3 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50"
-              >
-                <Linkedin className="h-3.5 w-3.5" /> LinkedIn
-              </a>
-            )}
+            {(() => {
+              const safeUrl = (u: unknown) =>
+                typeof u === "string" && /^https?:\/\//i.test(u) ? u : null;
+              const website = safeUrl(f.website_url);
+              const linkedin = safeUrl(f.linkedin_url);
+              return (
+                <>
+                  {website && (
+                    <a
+                      href={website}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 px-3 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50"
+                    >
+                      <Globe className="h-3.5 w-3.5" /> Website
+                    </a>
+                  )}
+                  {linkedin && (
+                    <a
+                      href={linkedin}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 px-3 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50"
+                    >
+                      <Linkedin className="h-3.5 w-3.5" /> LinkedIn
+                    </a>
+                  )}
+                </>
+              );
+            })()}
           </div>
         </div>
 
