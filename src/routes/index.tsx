@@ -165,7 +165,7 @@ function IndexPage() {
             <p className="font-heading text-lg font-semibold text-red-700">
               Unable to load companies.
             </p>
-            <p className="mt-2 text-sm text-red-600">{String(error)}</p>
+            <p className="mt-2 text-sm text-red-600">Something went wrong. Please try again.</p>
             <button
               onClick={() => refetch()}
               className="mt-4 rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700"
