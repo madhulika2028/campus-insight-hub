@@ -14,6 +14,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { CompanyProvider } from "../context/CompanyContext";
 import { TooltipProvider } from "../components/ui/tooltip";
 import { Toaster } from "../components/ui/sonner";
+import { FloatingChatbot } from "../components/FloatingChatbot";
 
 function NotFoundComponent() {
   return (
@@ -129,6 +130,7 @@ function RootComponent() {
       <TooltipProvider>
         <CompanyProvider>
           <Outlet />
+          <FloatingChatbot />
           <Toaster />
         </CompanyProvider>
       </TooltipProvider>
